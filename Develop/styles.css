@@ -1,0 +1,5 @@
+textarea {
+    height: 200px;
+    border: dashed;
+    border-color: gray;
+}
