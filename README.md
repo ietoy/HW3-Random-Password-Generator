@@ -1,86 +1,71 @@
-# Unit 03 JavaScript Homework: Password Generator
+# Random Password Generator
 
 ## Description
+This application is a random password generator that can create secure passwords between 8 and 128 characters generated from between 1 and 4 different character sets.
 
-Create an application that generates a random password based on user-selected criteria. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code.
+## Why this App?
+There are several security needs that this application serves to fill.
 
-The user will be prompted to choose from the following password criteria:
+Users with access to sensitive data will want to protect their confidential information. Instead of having to come up with their own secure passwords, users can implement the Random Password Generator to create a secure key that can be calibrated to meet any form-specific needs (if special characters are allowed, if the form is case-sensitive, etc.). 
 
-* Length (must be between 8 and 128 characters)
+## How it Works
+Clicking the "Generate Password" button initiates a series of prompts. The user is asked how long they would like their new password to be in character length, followed by individual prompts for which character-sets they would like to generate their password from. These options include uppercase letters, lowercase letters, numerals, and special characters. Users must select between 8 and 128 characters when choosing password length, and much choose at least one character set in order to proceed.
 
-* Character type:
+Once the user has finished replying to the above prompts, their new randomly generated password will generate in the text area in the center of the page.
 
-  * Special characters ([see examples](https://www.owasp.org/index.php/Password_special_characters))
+## Under the Hood
 
-  * Numeric characters
+The code snippet below demonstrates how the application concatenates random characters from up to four character sets to generate a secure password:
 
-  * Lowercase characters
+    var genArray;
+    genArray = [];
+    
+    var lowCase;
+    lowCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    
+    var upCase;
+    upCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    
+    var numeral;
+    numeral = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    
+    var special;
+    special = [" ", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "^", "_", "`", "{", "|", "}", "~"];
 
-  * Uppercase characters
+These arrays include lowercase letters, uppercase letters, numerals, and special characters respectively. The empty genArray at the top of the snippet serves as the staging area which holds the contents of these four arrays.
 
-The application should validate user input and ensure that at least one character type is selected.
+The next snippet illustrates how the adds arrays to the genArray based on user responses.
 
-Once all prompts are answered, the user will be presented with a password matching the answered prompts. Displaying the generated password in an alert is acceptable, but attempt to write the password to the page instead.
+    function generatePassword() {
+        var addLowCase;
+        addLowCase = confirm("Would you like to include lower-case letters?");
+          if (addLowCase) {
+            lowCase.forEach(function(element) {
+            genArray.push(element);
+            });
+          }
+        var addUpCase;
+        addUpCase = confirm("Would you like to include upper-case letters?");
+          if (addUpCase) {
+            upCase.forEach(function(element) {
+            genArray.push(element);
+            });
+          }
+        var addNumeral;
+        addNumeral = confirm("Would you like to include numerals?");
+          if (addNumeral) {
+            numeral.forEach(function(element) {
+            genArray.push(element);
+            });
+          }
+        var addSpecial;
+        addSpecial = confirm("Would you like to include special characters?");
+          if (addSpecial) {
+            special.forEach(function(element) {
+            genArray.push(element);
+            });
+          }
 
-As a bonus, the user should also have the option to click a button to copy the password to their clipboard.
+If the user responds "okay" to the inclusion of a particular character set, each item in that array is added to the genArray via the javascript forEach() function.
 
-Your application should have a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
-
-Your application should be deployed to GitHub Pages.
-
-Your application's GitHub repository should contain a README.md file explaining the purpose and functionality of the application. The README.md file should include a screenshot of the completed application as well as a link to the deployed GitHub Pages URL.
-
-![password generator demo](./Assets/03-JavaScript-homework-demo.png)
-
-## User Story
-
-AS AN employee with access to sensitive data
-
-I WANT to randomly generate a password that meets certain criteria
-
-SO THAT I can create a strong password that provides greater security
-
-## Business Context
-
-For companies that handle large amounts of sensitive data, weak passwords can pose a real security threat. An application that can generate strong passwords quickly and effortlessly saves employees time and ensures secure access to data.
-
-## Acceptance Criteria
-
-GIVEN that a user needs a new, secure password
-
-WHEN prompted for password criteria
-
-THEN a password is generated
-
-- - -
-
-## Commit Early and Often
-
-One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for two reasons:
-
-* Your commit history is a signal to employers that you are actively working on projects and learning new skills.
-
-* Your commit history allows you to revert your codebase in the event that you need to return to a previous state.
-
-Follow these guidelines for committing:
-
-* Make single-purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits.
-
-* Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history.
-
-* Don't commit half-done work, for the sake of your collaborators (and your future self!).
-
-* Test your application before you commit to ensure functionality at every step in the development process.
-
-We would like you to have well over 200 commits by graduation, so commit early and often!
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+Through this process, the Random Password Generator can create passwords with almost one-hundred points of entropy for each character up to 128 characters!
